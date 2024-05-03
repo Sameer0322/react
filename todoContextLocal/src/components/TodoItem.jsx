@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import { useTodo } from '../contexts/TodoContext';
 
 function TodoItem({ todo }) {
-  const [isTodoEditable, setisTodoEditable] = useState(false)
+  const [isTodoEditable, setIsTodoEditable] = useState(false)
   const [todoMsg, setTodoMsg] = useState(todo.todo)
   const {updateTodo, deleteTodo, toggleComplete} = useTodo()
 
-  const editTodo=()=>{
-    updateTodo(todo.id, {...todo,todo: todoMsg})
-    setisTodoEditable(false)
+  const editTodo = () => {
+    updateTodo(todo.id, {...todo, todo: todoMsg})
+    setIsTodoEditable(false)
   }
-
-  const toggleCompleted = ()=>{
+  const toggleCompleted = () => {
+    //console.log(todo.id);
     toggleComplete(todo.id)
   }
 
@@ -33,7 +33,7 @@ function TodoItem({ todo }) {
                   isTodoEditable ? "border-black/10 px-2" : "border-transparent"
               } ${todo.completed ? "line-through" : ""}`}
               value={todoMsg}
-              onChange={(e) => {setTodoMsg(e.target.value); console.log(todoMsg);}}
+              onChange={(e) => setTodoMsg(e.target.value)}
               readOnly={!isTodoEditable}
           />
           {/* Edit, Save Button */}
@@ -44,7 +44,7 @@ function TodoItem({ todo }) {
 
                   if (isTodoEditable) {
                       editTodo();
-                  } else setisTodoEditable((prev) => !prev);
+                  } else setIsTodoEditable((prev) => !prev);
               }}
               disabled={todo.completed}
           >
